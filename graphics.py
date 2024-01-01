@@ -3,11 +3,10 @@ from tkinter import Tk, BOTH, Canvas
 class Window():
     def __init__(self, width, height):
         super().__init__()
-        self.width = width
-        self.height = height
+
         self.root = Tk()
         self.root.title("Maze Solver | Boot.dev | @Alexandreffaria")
-        self.canvas = Canvas(height=self.height, width=self.width)
+        self.canvas = Canvas(self.root, bg="black",height=height, width=width)
         self.canvas.pack()
         self.isRunning = False
         self.root.protocol("WM_DELETE_WINDOW", self.close)
