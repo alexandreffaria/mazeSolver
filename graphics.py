@@ -2,8 +2,6 @@ from tkinter import Tk, BOTH, Canvas
 
 class Window():
     def __init__(self, width, height):
-        super().__init__()
-
         self.root = Tk()
         self.root.title("Maze Solver | Boot.dev | @Alexandreffaria")
         self.canvas = Canvas(self.root, bg="black",height=height, width=width)
@@ -23,4 +21,7 @@ class Window():
 
     def close(self):
         self.isRunning = False
-    
+
+
+class Point():
+    def __init__(self, x, y):
