@@ -1,26 +1,10 @@
-from tkinter import Tk, BOTH, Canvas
+from graphics import Window
 
-class Window(Tk):
-    def __init__(self, width, height):
-        super().__init__()
-        self.width = width
-        self.height = height
-        self.title("Maze Solver")
-        self.canvas = Canvas(height=self.height, width=self.width)
-        self.canvas.pack()
-        self.isRunning = False
+def main():
+    janela = Window(
+    800, 600
+    )
+    janela.wait_for_close()
 
-    def redraw(self):
-        self.update_idletasks()
-        self.update()
-
-    def wait_for_close(self):
-        self.isRunning = True
-        while self.isRunning:
-            self.redraw()
-    
-janela = Window(
-    300, 200
-)
-
-janela.wait_for_close()
+if __name__ == "__main__":
+    main()
