@@ -1,4 +1,5 @@
-from graphics import Window, Point, Line, Cell
+from graphics import Window, Point, Line
+from cell import Cell
 
 def main():
     janela = Window(800, 600)
@@ -21,7 +22,10 @@ def main():
     celula3.has_bottom_wall = False
     celula3.has_left_wall = False
     celula3.draw(123, 203, 432, 39)
-    
+
+    celula2.draw_move(celula)
+    celula.draw_move(celula3, undo=True)
+
     janela.wait_for_close()
 
 if __name__ == "__main__":
