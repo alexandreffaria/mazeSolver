@@ -38,7 +38,7 @@ class Line():
 
     def draw(self, canvas, fill_color="salmon"):
         canvas.create_line(
-            self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=4
+            self.point1.x, self.point1.y, self.point2.x, self.point2.y, fill=fill_color, width=3
         )
         canvas.pack(fill=BOTH, expand=1)
 
