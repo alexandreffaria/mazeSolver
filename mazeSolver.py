@@ -10,17 +10,17 @@ def main():
     linha = Line(ponto1,ponto2)
     janela.draw_line(linha, "salmon")
 
-    celula = Cell(ponto1, ponto2, janela)
-    celula.draw()
+    celula = Cell( janela)
+    celula.draw(10,10,249,100)
 
-    celula2 = Cell(Point(400,300), Point(500,400), janela)
+    celula2 = Cell( janela)
     celula2.has_bottom_wall = False
-    celula2.draw()
+    celula2.draw(250,250, 300, 300)
 
-    celula3 = Cell(Point(125,125), Point(700,700), janela)
+    celula3 = Cell( janela)
     celula3.has_bottom_wall = False
     celula3.has_left_wall = False
-    celula3.draw()
+    celula3.draw(123, 203, 432, 39)
 
 
 
