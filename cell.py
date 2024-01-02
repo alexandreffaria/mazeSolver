@@ -33,15 +33,45 @@ class Cell():
             self.__win.draw_line(line)
     
     def draw_move(self, to_cell, undo=False):
+        if self._win is None:
+            return
         if not undo:
             color_line = "cyan"
         else:
             color_line = "gray"
         
-        center_self = Point((self.__x1 + self.__x2)/2, (self.__y1 + self.__y2)/2)
-        center_to_cell = Point((to_cell.__x1 + to_cell.__x2)/2, (to_cell.__y1 + to_cell.__y2)/2)
+        x_self = (self.__x1 + self.__x2)/2
+        y_self = (self.__y1 + self.__y2)/2
 
-        line = Line(center_self, center_to_cell)
-        self.__win.draw_line(line, fill_color=color_line)
+        x_to_cell = (to_cell.__x1 + to_cell.__x2)/2
+        y_to_cell = (to_cell.__y1 + to_cell.__y2)/2
+
+        if self.__x1 > to_cell.__x1:
+            line = Line(Point(self.__x1, y_to_cell), Point(x_self, y_to_cell))
+            self.__win.draw_line(line, color_line)
+            line = Line(Point(x_to_cell, y_to_cell), Point(to_cell.__x2, y_to_cell))
+            self.__win.draw_line(line, color_line)
+
+        # moving right
+        elif self.__x1 < to_cell.__x1:
+            line = Line(Point(x_self, y_to_cell), Point(self.__x2, y_to_cell))
+            self.__win.draw_line(line, color_line)
+            line = Line(Point(to_cell.__x1, y_to_cell), Point(x_to_cell, y_to_cell))
+            self.__win.draw_line(line, color_line)
+
+        # moving up
+        elif self.__y1 > to_cell.__y1:
+            line = Line(Point(x_self, y_to_cell), Point(x_self, self.__y1))
+            self.__win.draw_line(line, color_line)
+            line = Line(Point(x_to_cell, to_cell._y2), Point(x_to_cell, y_to_cell))
+            self.__win.draw_line(line, color_line)
+
+        # moving down
+        elif self.__y1 < to_cell.__y1:
+            line = Line(Point(x_self, y_to_cell), Point(x_self, self.__y2))
+            self.__win.draw_line(line, color_line)
+            line = Line(Point(x_to_cell, y_to_cell), Point(x_to_cell, to_cell.__y1))
+            self.__win.draw_line(line, color_line)
+
 
         

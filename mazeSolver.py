@@ -2,31 +2,33 @@ from graphics import Window, Point, Line
 from cell import Cell
 
 def main():
-    janela = Window(800, 600)
+    win = Window(800, 600)
 
-    ponto1 = Point(10,10)
+    c1 = Cell(win)
+    c1.has_right_wall = False
+    c1.draw(50, 50, 100, 100)
 
-    ponto2 = Point(600,100)
+    c2 = Cell(win)
+    c2.has_left_wall = False
+    c2.has_bottom_wall = False
+    c2.draw(100, 50, 150, 100)
 
-    linha = Line(ponto1,ponto2)
-    janela.draw_line(linha, "salmon")
+    c1.draw_move(c2)
 
-    celula = Cell(janela)
-    celula.draw(10,10,249,100)
+    c3 = Cell(win)
+    c3.has_top_wall = False
+    c3.has_right_wall = False
+    c3.draw(100, 100, 150, 150)
 
-    celula2 = Cell(janela)
-    celula2.has_bottom_wall = False
-    celula2.draw(250,250, 300, 300)
+    c2.draw_move(c3)
 
-    celula3 = Cell(janela)
-    celula3.has_bottom_wall = False
-    celula3.has_left_wall = False
-    celula3.draw(123, 203, 432, 39)
+    c4 = Cell(win)
+    c4.has_left_wall = False
+    c4.draw(150, 100, 200, 150)
 
-    celula2.draw_move(celula)
-    celula.draw_move(celula3, undo=True)
+    c3.draw_move(c4, True)
 
-    janela.wait_for_close()
+    win.wait_for_close()
 
 if __name__ == "__main__":
     main()
