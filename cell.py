@@ -33,7 +33,7 @@ class Cell():
             self.__win.draw_line(line)
     
     def draw_move(self, to_cell, undo=False):
-        if self._win is None:
+        if self.__win is None:
             return
         if not undo:
             color_line = "cyan"
