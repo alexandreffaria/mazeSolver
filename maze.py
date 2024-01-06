@@ -1,6 +1,7 @@
 from cell import Cell
 from time import sleep
 import random
+from collections import deque
 
 class Maze():
     def __init__(
@@ -55,7 +56,6 @@ class Maze():
     def _animate(self):
         if not self._win:
             return
-        
         self._win.redraw()
         sleep(.005)
 
@@ -117,3 +117,87 @@ class Maze():
         for cell_row in self._cells:
             for cell in cell_row:
                 cell.visited = False
+
+    def solve(self, method='d'):
+        if method == 'd':
+            return self._solve_r_D(0, 0)
+        elif method == 'b':
+            return self._solve_bfs()
+        else:
+            print(f'Unknown method: {method}. Please choose "dfs" or "bfs".')
+
+    
+    def _solve_r_D(self, i, j):
+        self._animate()
+        self._cells[i][j].visited = True
+        if i == self._num_cols - 1 and j == self._num_rows - 1:
+            return True
+        top = [i - 1, j]
+        bottom = [i + 1, j]
+        left = [i, j - 1]
+        right = [i, j + 1]
+
+        directions = [top, bottom, left, right]
+
+        for direction in directions:
+        # Check the cell is valid and not visited
+           if (0 <= direction[0] < self._num_cols) and (0 <= direction[1] < self._num_rows) \
+                and not self._cells[direction[0]][direction[1]].visited \
+                and self.can_move_to(i, j, direction[0], direction[1]):
+                
+                self._cells[i][j].draw_move(self._cells[direction[0]][direction[1]]) # Draw a move
+
+                if self._solve_r_D(direction[0], direction[1]):
+                    # This assumes the 'draw_move' function exists and accepts a cell as an argument
+                    self._cells[i][j].draw_move(self._cells[direction[0]][direction[1]])
+                    return True
+                else:
+                    # undo the move
+                    self._cells[i][j].draw_move(self._cells[direction[0]][direction[1]], undo=True)
+                        
+        return False # Return False if no directions are valid
+
+    def _solve_bfs(self):
+        start = [0, 0]
+        destination = [self._num_cols - 1, self._num_rows - 1]
+        queue = deque([start])
+        came_from = {tuple(start): None}
+
+        while queue:
+            current = queue.popleft()
+            self._cells[current[0]][current[1]].visited = True
+            self._animate()
+
+            # If we've reached the destination
+            if current == destination:
+                # Reconstruct the path here if necessary and return True
+                return True
+
+            top = [current[0] - 1, current[1]]
+            bottom = [current[0] + 1, current[1]]
+            left = [current[0], current[1] - 1]
+            right = [current[0], current[1] + 1]
+            directions = [top, bottom, left, right]
+
+            for direction in directions:
+                if (0 <= direction[0] < self._num_cols) and (0 <= direction[1] < self._num_rows) \
+                    and not self._cells[direction[0]][direction[1]].visited \
+                    and self.can_move_to(current[0], current[1], direction[0], direction[1]):
+
+                    self._cells[current[0]][current[1]].draw_move(self._cells[direction[0]][direction[1]]) # Draw move
+                    queue.append(direction)
+                    came_from[tuple(direction)] = current
+
+        # if we've exhausted all possibilities without finding a path, return False
+        return False
+
+    def can_move_to(self, current_i, current_j, next_i, next_j):
+        if current_i < next_i:  # moving right
+            return not self._cells[current_i][current_j].has_right_wall and not self._cells[next_i][next_j].has_left_wall
+        elif current_i > next_i:  # moving left
+            return not self._cells[current_i][current_j].has_left_wall and not self._cells[next_i][next_j].has_right_wall
+        elif current_j < next_j:  # moving down
+            return not self._cells[current_i][current_j].has_bottom_wall and not self._cells[next_i][next_j].has_top_wall
+        elif current_j > next_j:  # moving up
+            return not self._cells[current_i][current_j].has_top_wall and not self._cells[next_i][next_j].has_bottom_wall
+
