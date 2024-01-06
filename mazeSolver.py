@@ -6,7 +6,8 @@ import random, argparse
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m', '--mode', default='', help="Give me the model to solve: 'd' for Depth or 'b' for Breadth")
+    parser.add_argument('-m', '--mode', default='d', help="Give me the model to solve: 'd' for Depth or 'b' for Breadth")
+    args = parser.parse_args()
 
     num_rows = 20
     num_cols = 20
@@ -33,7 +34,7 @@ def main():
     labirinto._break_walls_r(0, 0)
     labirinto._reset_cells_visited()
 
-    labirinto.solve("b")
+    labirinto.solve(args.mode)
     
     win.wait_for_close()
 
