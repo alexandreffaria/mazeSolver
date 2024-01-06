@@ -29,6 +29,8 @@ def main():
     labirinto._break_entrance_and_exit()
     labirinto._break_walls_r(0, 0)
     labirinto._reset_cells_visited()
+
+    labirinto.solve()
     
     win.wait_for_close()
 
