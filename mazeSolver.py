@@ -1,9 +1,12 @@
 from graphics import Window, Point, Line
 from cell import Cell
 from maze import Maze
-import random
+import random, argparse
 
 def main():
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m', '--mode', default='', help="Give me the model to solve: 'd' for Depth or 'b' for Breadth")
 
     num_rows = 20
     num_cols = 20
@@ -30,7 +33,7 @@ def main():
     labirinto._break_walls_r(0, 0)
     labirinto._reset_cells_visited()
 
-    labirinto.solve()
+    labirinto.solve("b")
     
     win.wait_for_close()
 
