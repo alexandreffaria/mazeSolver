@@ -1,5 +1,6 @@
-import unittest
+import unittest, random
 from maze import Maze
+
 
 class Test(unittest.TestCase):
     def test_maze_create_cells(self):
@@ -37,6 +38,34 @@ class Test(unittest.TestCase):
 
         exit_cell = maze._cells[maze._num_cols - 1][maze._num_rows - 1]
         self.assertFalse(exit_cell.has_bottom_wall)
+
+    def test_reset_all_cells_visited(self):
+        num_rows = 20
+        num_cols = 20
+        margin = 10
+        screen_x = 1000
+        screen_y = 1000
+        seed = random.randint(0,1000)
+
+        cell_size_x = (screen_x - 2 * margin) / num_cols
+        cell_size_y = (screen_y - 2 * margin) / num_rows
+        
+        labirinto = Maze(
+        margin, margin, 
+        num_rows, 
+        num_cols, 
+        cell_size_x, 
+        cell_size_y,
+        None, 
+        seed)
+
+        labirinto._break_entrance_and_exit()
+        labirinto._break_walls_r(0, 0)
+        labirinto._reset_cells_visited()
+
+        for col_cells in labirinto._cells:
+            for cell in col_cells:
+                self.assertFalse(cell.visited)
 
 if __name__ == "__main__":
     unittest.main()
