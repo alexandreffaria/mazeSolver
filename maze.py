@@ -119,9 +119,9 @@ class Maze():
                 cell.visited = False
 
     def solve(self, method='d'):
-        if method == 'd':
+        if method == 'd' or method == 'D':
             return self._solve_r_D(0, 0)
-        elif method == 'b':
+        elif method == 'b' or method == 'B':
             return self._solve_bfs()
         else:
             print(f'Unknown method: {method}. Please choose "dfs" or "bfs".')
