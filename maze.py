@@ -112,3 +112,8 @@ class Maze():
         # After knocking down the walls, redraw the cells
         self._draw_cell(i, j)
         self._draw_cell(i + dx, j + dy)
+
+    def _reset_cells_visited(self):
+        for cell_row in self._cells:
+            for cell in cell_row:
+                cell.visited = False
