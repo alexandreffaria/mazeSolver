@@ -59,45 +59,30 @@ class Cell():
         x_to_cell = (to_cell.__x1 + to_cell.__x2)/2
         y_to_cell = (to_cell.__y1 + to_cell.__y2)/2
 
-        # moving left
+       # moving left
         if self.__x1 > to_cell.__x1:
-            end_point = Point(self.__x1, y_self)
+            end_point = Point(to_cell.__x1, y_self)
             line = Line(Point(x_self, y_self), end_point)
-            self.__win.draw_line(line, color_line)
-            
-            start_point = end_point
-            line = Line(start_point, Point(to_cell.__x2, y_to_cell))
             self.__win.draw_line(line, color_line)
 
         # moving right
         elif self.__x1 < to_cell.__x1:
-            end_point = Point(self.__x2, y_self)
+            end_point = Point(to_cell.__x2, y_self)
             line = Line(Point(x_self, y_self), end_point)
-            self.__win.draw_line(line, color_line)
-
-            start_point = end_point
-            line = Line(start_point, Point(to_cell.__x1, y_to_cell))
             self.__win.draw_line(line, color_line)
 
         # moving up
         elif self.__y1 > to_cell.__y1:
-            end_point = Point(x_self, self.__y1)
+            end_point = Point(x_self, to_cell.__y1)
             line = Line(Point(x_self, y_self), end_point)
-            self.__win.draw_line(line, color_line)
-
-            start_point = end_point
-            line = Line(start_point, Point(x_to_cell, to_cell.__y2))
             self.__win.draw_line(line, color_line)
 
         # moving down
         elif self.__y1 < to_cell.__y1:
-            end_point = Point(x_self, self.__y2)
+            end_point = Point(x_self, to_cell.__y2)
             line = Line(Point(x_self, y_self), end_point)
             self.__win.draw_line(line, color_line)
 
-            start_point = end_point
-            line = Line(start_point, Point(x_to_cell, to_cell.__y1))
-            self.__win.draw_line(line, color_line)
 
 
 
